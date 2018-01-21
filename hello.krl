@@ -24,7 +24,8 @@ A first ruleset for the Quickstart
   rule hello_monkey {
     select when echo monkey
     pre {
-      name = event:attr("name").defaultsTo("Monkey")
+      attribute = event:attr("name")
+      name = (event:attr("name") == null) => "Monkey" | attribute
     }
     send_directive("say", {"something": "Hello " + name})
   }
